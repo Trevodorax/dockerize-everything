@@ -1,0 +1,8 @@
+# Files considered as forbidden in the README
+*~
+*.swp
+.DS_Store
+.idea/
+*.class
+*.log
+*.core
