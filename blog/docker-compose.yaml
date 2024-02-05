@@ -5,6 +5,7 @@ services:
     ports:
       - "5432:5432"
     environment:
+      # TODO: extract these to .env
       POSTGRES_DB: blog
       POSTGRES_PASSWORD: meau-de-pace
       POSTGRES_USER: paul
@@ -16,6 +17,8 @@ services:
       - "8000:8000"
     depends_on:
       - db
+    environment:
+      - ROCKET_ADDRESS=0.0.0.0
 volumes:
   db_data:
     driver: local
