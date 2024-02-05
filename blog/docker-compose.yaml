@@ -17,7 +17,9 @@ services:
     depends_on:
       - db
     environment:
+      # Doesn't work with 127.0.0.1
       - ROCKET_ADDRESS=0.0.0.0
+      # For access in entrypoint script (for migrations)
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
