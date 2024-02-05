@@ -1,6 +1,6 @@
 #!/bin/bash
 # wait for the database to be ready
-until PGPASSWORD=meau-de-pace psql -h "db" -U "paul" -d "blog" -c '\q' 2>/dev/null; do
+until PGPASSWORD=$POSTGRES_PASSWORD psql -h "db" -U "$POSTGRES_USER" -d "$POSTGRES_DB" -c '\q' 2>/dev/null; do
   >&2 echo "Database is unavailable - sleeping"
   sleep 1
 done
