@@ -5,4 +5,11 @@ WORKDIR /usr/src/blog
 RUN rustup default nightly
 COPY . .
 RUN cargo install --path .
+
+RUN cargo install diesel_cli --no-default-features --features "postgres"
+# this should be done only on runtime
+COPY docker-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+ENTRYPOINT ["docker-entrypoint.sh"]
+
 CMD ["blog"]
