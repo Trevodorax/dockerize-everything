@@ -1,2 +1,28 @@
 # Définir cette configuration Compose afin de lancer l'application
 # Grilli en production.
+version: '3.8'
+
+services:
+  restaurant-website:
+    container_name: restaurant-website
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - APP_ENV=prod
+    volumes:
+      - website-data:/var/www/html/public
+
+  nginx:
+    container_name: nginx-server
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - website-data:/var/www/html/public
+      - ./.docker/nginx/grilli.com.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - restaurant-website
+
+volumes:
+    website-data:
