@@ -1,8 +1,6 @@
-# Créer un Dockerfile pour cette application en mode production
-# Utiliser l'image officielle de PHP avec FPM
 FROM php:8.3-fpm
 
-# Installer les dépendances système requises pour les extensions PHP et les outils nécessaires
+# Install the required system dependencies for PHP extensions and necessary tools
 RUN apt-get update && apt-get install -y \
         libicu-dev \
         libzip-dev \
@@ -13,26 +11,29 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/* \
     && docker-php-ext-install intl zip
 
-# Installer Composer
+# Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
-# Définir la variable d'environnement pour Symfony
+# Define environment variable for Symfony
 ENV APP_ENV=prod
 
-# Copier le code source de l'application dans le conteneur
+# Set the working directory
+WORKDIR /var/www/html
+
+# Copy the source code to the working directory
 COPY . /var/www/html
 
-# Installer les dépendances avec Composer
+# Install dependencies with Composer
 RUN composer install --no-dev --optimize-autoloader --working-dir=/var/www/html
 
-# Donner la propriété à www-data
+# Change the owner of the working directory
 RUN chown -R www-data:www-data /var/www/html
 
-# Changer l'utilisateur par défaut de PHP-FPM
+# Change the default user of the PHP-FPM process
 USER www-data
 
-# Compiler les assets (si nécessaire)
+# Compile the assets
 RUN php bin/console asset-map:compile --env=prod --no-debug
 
-# Nettoyer le cache
+# Clear the cache
 RUN php bin/console cache:clear --env=prod --no-debug
