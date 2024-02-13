@@ -14,23 +14,26 @@ RUN apt-get update && apt-get install -y \
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
-# Define environment variable for Symfony
-ENV APP_ENV=prod
-
 # Set the working directory
 WORKDIR /var/www/html
 
 # Copy the source code to the working directory
-COPY . /var/www/html
-
-# Install dependencies with Composer
-RUN composer install --no-dev --optimize-autoloader --working-dir=/var/www/html
+COPY assets assets
+COPY bin bin
+COPY config config
+COPY public public
+COPY src src
+COPY templates templates
+COPY composer.json composer.json
 
 # Change the owner of the working directory
 RUN chown -R www-data:www-data /var/www/html
 
 # Change the default user of the PHP-FPM process
 USER www-data
+
+# Install dependencies with Composer
+RUN composer install --no-dev --optimize-autoloader --working-dir=/var/www/html
 
 # Compile the assets
 RUN php bin/console asset-map:compile --env=prod --no-debug
