@@ -4,9 +4,12 @@ services:
   nginx-server-tv-shows:
     image: nginx:stable-alpine
     ports:
-      - "3000:80"
+      - "${APP_PORT}:${NGINX_PORT}"
+    environment:
+      - APP_PORT=${APP_PORT}
+      - NGINX_PORT=${NGINX_PORT}
     volumes:
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./nginx.conf:/etc/nginx/templates/default.conf.template
     depends_on:
       - client
       - server
