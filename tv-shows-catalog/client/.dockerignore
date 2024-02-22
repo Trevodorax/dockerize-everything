@@ -1,0 +1,9 @@
+.env.*
+.gitignore
+README.md
+Dockerfile
+.eslintignore
+.eslintrc.cjs
+.npmrc
+.prettierrc
+.prettierignore
