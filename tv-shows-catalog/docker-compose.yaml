@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  nginx-server-tv-shows:
+  nginx:
     image: nginx:stable-alpine
     ports:
       - "${APP_PORT}:${NGINX_PORT}"
@@ -14,8 +14,8 @@ services:
       - client
       - server
 
-  client-tv-shows:
+  client:
     build: ./client
 
-  server-tv-shows:
+  server:
     build: ./server
