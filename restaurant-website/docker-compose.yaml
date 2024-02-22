@@ -24,3 +24,5 @@ services:
 
 volumes:
   website-data:
+
+# BIND PORTS WITH ENV VARIABLES

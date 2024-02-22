@@ -15,9 +15,9 @@ services:
     ports:
       - "8000:8000"
     depends_on:
+      # TODO: use pgisready and a healthcheck to use instead of loop in entrypoint and remove pg client from image, only start once ready (done in depends_on)
       - db
     environment:
-      # Doesn't work with 127.0.0.1
       - ROCKET_ADDRESS=0.0.0.0
       # For access in entrypoint script (for migrations)
       - POSTGRES_DB=${POSTGRES_DB}
@@ -26,3 +26,5 @@ services:
 volumes:
   db_data:
     driver: local
+
+# TODO: port values in .env

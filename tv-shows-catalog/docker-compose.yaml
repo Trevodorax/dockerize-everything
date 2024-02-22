@@ -1,9 +1,8 @@
 version: '3.8'
 
 services:
-  nginx:
+  nginx-server-tv-shows:
     image: nginx:stable-alpine
-    container_name: nginx-server
     ports:
       - "3000:80"
     volumes:
@@ -12,10 +11,8 @@ services:
       - client
       - server
 
-  client:
+  client-tv-shows:
     build: ./client
-    container_name: client
 
-  server:
+  server-tv-shows:
     build: ./server
-    container_name: server

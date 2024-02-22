@@ -1,4 +1,5 @@
 FROM php:8.3-fpm
+# USE ALPINE
 
 # Install the required system dependencies for PHP extensions and necessary tools
 RUN apt-get update && apt-get install -y \
@@ -25,6 +26,7 @@ COPY public public
 COPY src src
 COPY templates templates
 COPY composer.json composer.json
+# .dockerignore then COPY . .
 
 # Change the owner of the working directory
 RUN chown -R www-data:www-data /var/www/html
