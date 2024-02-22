@@ -1,13 +1,10 @@
 .docker
 .idea
 tests
-.env
 .env.*
 .gitignore
 docker-compose.yaml
 Dockerfile
-importmap.php
 phpunit.xml.dist
 README.md
-symfony.lock
 composer.lock
