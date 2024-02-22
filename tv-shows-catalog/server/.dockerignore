@@ -1,0 +1,7 @@
+.gitignore
+README.md
+Dockerfile
+.eslintignore
+.eslintrc.js
+.prettierrc
+nest-cli.json
