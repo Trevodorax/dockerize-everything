@@ -1,8 +1,11 @@
 FROM node:lts-alpine as builder
 
 WORKDIR /usr/src/tv-shows-catalog/server
-COPY . .
+COPY package.json package.json
+COPY package-lock.json package-lock.json
 RUN npm install
+
+COPY . .
 RUN npm run build
 
 FROM node:lts-alpine
