@@ -8,15 +8,14 @@ services:
       dockerfile: Dockerfile
     volumes:
       - website-data:/var/www/html/public
-    env_file:
-      - .env.prod
 
   nginx:
     image: nginx:stable-alpine
-    env_file:
-      - .env.prod
     ports:
       - ${LOCAL_PORT}:${NGINX_PORT}
+    environment:
+      - NGINX_PORT=${NGINX_PORT}
+      - LOCAL_PORT=${LOCAL_PORT}
     volumes:
       - website-data:/var/www/html/public
       - ./.docker/nginx/grilli.com.conf:/etc/nginx/templates/default.conf.template
