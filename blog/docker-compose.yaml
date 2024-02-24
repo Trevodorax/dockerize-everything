@@ -22,13 +22,8 @@ services:
     depends_on:
       db:
         condition: service_healthy
-    environment:
-      - ROCKET_ADDRESS=${ROCKET_ADDRESS}
-      # For access in entrypoint script (for migrations)
-      - POSTGRES_DB=${POSTGRES_DB}
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - DATABASE_URL=${DATABASE_URL}
+    env_file:
+      - .env
 volumes:
   db_data:
     driver: local
